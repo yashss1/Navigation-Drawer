@@ -27,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Fragment fragment = new BasketFragment();
-        loadFragment(fragment);
-
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer);
         toolbar = findViewById(R.id.toolbar);
@@ -38,39 +35,44 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+
+        if(savedInstanceState==null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame, new BasketFragment()).commit();
+            navigationView.setCheckedItem(R.id.basket);
+        }
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
-                Fragment fragment = null;
                 switch (id){
                     case R.id.search:
-                        fragment = new SearchFragment();
-                        loadFragment(fragment);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new SearchFragment()).commit();
+                        navigationView.setCheckedItem(R.id.search);
                         break;
                     case R.id.basket:
-                        fragment = new BasketFragment();
-                        loadFragment(fragment);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new BasketFragment()).commit();
+                        navigationView.setCheckedItem(R.id.basket);
                         break;
                     case R.id.favorite:
-                        fragment = new FavFragment();
-                        loadFragment(fragment);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new FavFragment()).commit();
+                        navigationView.setCheckedItem(R.id.favorite);
                         break;
                     case R.id.orders:
-                        fragment = new OrderFragment();
-                        loadFragment(fragment);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new OrderFragment()).commit();
+                        navigationView.setCheckedItem(R.id.orders);
                         break;
                     case R.id.settings:
-                        fragment = new SettingsFragment();
-                        loadFragment(fragment);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new SettingsFragment()).commit();
+                        navigationView.setCheckedItem(R.id.settings);
                         break;
                     case R.id.support:
-                        fragment = new SupportFragment();
-                        loadFragment(fragment);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new SupportFragment()).commit();
+                        navigationView.setCheckedItem(R.id.support);
                         break;
                     case R.id.promo_code:
-                        fragment = new PromoCodeFragment();
-                        loadFragment(fragment);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new PromoCodeFragment()).commit();
+                        navigationView.setCheckedItem(R.id.promo_code);
                         break;
                     default:
                         return true;
@@ -78,13 +80,5 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction  = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame, fragment).commit();
-        drawerLayout.closeDrawer(GravityCompat.START);
-        fragmentTransaction.addToBackStack(null);
     }
 }
