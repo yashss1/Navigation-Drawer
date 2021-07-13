@@ -27,12 +27,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Fragment fragment = new BasketFragment();
+        loadFragment(fragment);
+
+        navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -61,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.support:
                         fragment = new SupportFragment();
+                        loadFragment(fragment);
+                        break;
+                    case R.id.promo_code:
+                        fragment = new PromoCodeFragment();
                         loadFragment(fragment);
                         break;
                     default:

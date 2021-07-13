@@ -19,8 +19,8 @@
             android:id="@+id/toolbar"
             app:popupTheme="@style/AppTheme.popUpOverlay"
             app:layout_scrollFlags="scroll|enterAlways">
-
         </androidx.appcompat.widget.Toolbar>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
